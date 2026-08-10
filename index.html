@@ -1,0 +1,2873 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MALELA — Jasa Pembuatan Aplikasi & Sistem Digital untuk Bisnis</title>
+    <meta name="description" content="MALELA menyediakan jasa pembuatan aplikasi custom untuk toko, warung, warehouse, HR, inventory, quality management, dan bisnis multi-cabang." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0a1628;
+            --navy-light: #13203a;
+            --navy-glow: #1a2f5a;
+            --blue: #3b82f6;
+            --blue-dark: #2563eb;
+            --blue-glow: rgba(59, 130, 246, 0.35);
+            --purple: #8b5cf6;
+            --purple-glow: rgba(139, 92, 246, 0.3);
+            --orange: #f59e0b;
+            --orange-glow: rgba(245, 158, 11, 0.25);
+            --cyan: #06b6d4;
+            --cyan-glow: rgba(6, 182, 212, 0.2);
+            --white: #ffffff;
+            --off-white: #f0f4ff;
+            --gray-50: #eef2f7;
+            --gray-100: #dce3ed;
+            --gray-200: #bcc8db;
+            --gray-300: #94a3b8;
+            --gray-400: #64748b;
+            --gray-500: #475569;
+            --gray-600: #334155;
+            --gray-700: #1e293b;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+            --shadow-lg: 0 16px 56px rgba(0, 0, 0, 0.16);
+            --shadow-xl: 0 32px 80px rgba(0, 0, 0, 0.22);
+            --radius: 20px;
+            --radius-sm: 12px;
+            --radius-full: 9999px;
+            --transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--navy);
+            color: var(--gray-200);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .bg-canvas .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: orbFloat 20s ease-in-out infinite alternate;
+        }
+        .bg-canvas .orb:nth-child(1) {
+            width: 600px;
+            height: 600px;
+            background: var(--blue-glow);
+            top: -10%;
+            left: -10%;
+            animation-duration: 25s;
+        }
+        .bg-canvas .orb:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            background: var(--purple-glow);
+            bottom: -10%;
+            right: -10%;
+            animation-duration: 30s;
+            animation-delay: -5s;
+        }
+        .bg-canvas .orb:nth-child(3) {
+            width: 400px;
+            height: 400px;
+            background: var(--cyan-glow);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-duration: 35s;
+            animation-delay: -10s;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(60px, -40px) scale(1.1);
+            }
+            66% {
+                transform: translate(-30px, 60px) scale(0.9);
+            }
+            100% {
+                transform: translate(20px, -20px) scale(1.05);
+            }
+        }
+
+        /* ===== GRID OVERLAY ===== */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--navy);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--blue);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--purple);
+        }
+
+        /* ===== UTILITY ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+        .section-padding-sm {
+            padding: 70px 0;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--blue);
+            background: rgba(59, 130, 246, 0.12);
+            padding: 6px 20px;
+            border-radius: var(--radius-full);
+            margin-bottom: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(4px);
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+        .section-title .gradient {
+            background: linear-gradient(135deg, var(--blue), var(--purple), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-sub {
+            font-size: 1.15rem;
+            color: var(--gray-300);
+            max-width: 640px;
+            line-height: 1.8;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== GLASS CARD ===== */
+        .glass {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: var(--radius-full);
+            transition: var(--transition);
+            border: none;
+            letter-spacing: 0.01em;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            font-family: var(--font);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            color: var(--white);
+            box-shadow: 0 4px 24px var(--blue-glow);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 40px var(--blue-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+        .btn-outline:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 24px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366, #128C7E);
+            color: var(--white);
+            box-shadow: 0 4px 24px rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-sm {
+            padding: 10px 24px;
+            font-size: 0.8rem;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 22, 40, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+        .navbar.scrolled {
+            background: rgba(10, 22, 40, 0.9);
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 76px;
+        }
+
+        .nav-brand {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-brand .dot {
+            color: var(--blue);
+        }
+        .nav-brand small {
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--gray-400);
+            letter-spacing: 0.04em;
+            margin-left: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 2px 12px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+        }
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray-300);
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-links a:hover {
+            color: var(--white);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--blue), var(--purple));
+            transition: var(--transition);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-cta .btn {
+            padding: 10px 24px;
+            font-size: 0.8rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 4px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 2.5px;
+            background: var(--white);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 160px 0 100px;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--cyan);
+            background: rgba(6, 182, 212, 0.10);
+            padding: 6px 18px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            margin-bottom: 24px;
+            backdrop-filter: blur(4px);
+        }
+        .hero-content .badge .pulse {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--cyan);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: scale(0.6);
+            }
+        }
+
+        .hero-content h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+        .hero-content h1 .highlight {
+            background: linear-gradient(135deg, var(--blue), var(--purple), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content .subheadline {
+            font-size: 1.2rem;
+            color: var(--gray-300);
+            max-width: 520px;
+            line-height: 1.9;
+            margin-bottom: 28px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .hero-buttons .btn {
+            padding: 18px 40px;
+            font-size: 1rem;
+        }
+
+        .hero-wa {
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--gray-400);
+            font-size: 0.9rem;
+        }
+        .hero-wa .wa-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #25d366, #128C7E);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.25);
+        }
+        .hero-wa strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* Hero Visual - Futuristic Mockup */
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .hero-visual .mockup {
+            width: 100%;
+            max-width: 540px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 28px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-visual .mockup::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-visual .mockup-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-visual .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray-300);
+        }
+        .hero-visual .mockup-dot:nth-child(1) {
+            background: #ef4444;
+        }
+        .hero-visual .mockup-dot:nth-child(2) {
+            background: #f59e0b;
+        }
+        .hero-visual .mockup-dot:nth-child(3) {
+            background: #22c55e;
+        }
+        .hero-visual .mockup-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-visual .mockup-card {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: var(--radius-sm);
+            padding: 18px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition);
+        }
+        .hero-visual .mockup-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateY(-2px);
+        }
+        .hero-visual .mockup-card .label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray-400);
+        }
+        .hero-visual .mockup-card .value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-top: 4px;
+        }
+        .hero-visual .mockup-card .value.green {
+            color: #4ade80;
+        }
+        .hero-visual .mockup-card .value.orange {
+            color: #fbbf24;
+        }
+        .hero-visual .mockup-card .value.blue {
+            color: #60a5fa;
+        }
+        .hero-visual .mockup-card .value.purple {
+            color: #a78bfa;
+        }
+
+        /* ===== PROBLEM ===== */
+        .problem {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px 70px;
+            margin-top: 48px;
+        }
+        .problem-col h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .problem-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .problem-col ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            font-size: 0.95rem;
+            color: var(--gray-300);
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .problem-col ul li:last-child {
+            border-bottom: none;
+        }
+        .problem-col ul li .icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .problem-col ul li .icon.cross {
+            color: #f87171;
+        }
+        .problem-col ul li .icon.check {
+            color: #4ade80;
+        }
+
+        .problem-solution {
+            margin-top: 48px;
+            text-align: center;
+            padding: 48px 36px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+        }
+        .problem-solution h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--white);
+        }
+        .problem-solution h3 .gradient {
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .problem-solution p {
+            color: var(--gray-300);
+            margin-top: 10px;
+            font-size: 1.05rem;
+        }
+
+        /* ===== VALUE ===== */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .value-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            transition: var(--transition);
+            text-align: center;
+        }
+        .value-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(59, 130, 246, 0.2);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .value-card .emoji {
+            font-size: 2.6rem;
+            display: block;
+            margin-bottom: 14px;
+        }
+        .value-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+        .value-card p {
+            font-size: 0.9rem;
+            color: var(--gray-300);
+            line-height: 1.7;
+        }
+
+        /* ===== PORTFOLIO ===== */
+        .portfolio {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 48px;
+        }
+
+        .portfolio-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(59, 130, 246, 0.15);
+            box-shadow: 0 16px 56px rgba(0, 0, 0, 0.25);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .portfolio-card .card-body {
+            padding: 28px 28px 20px;
+            flex: 1;
+        }
+        .portfolio-card .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .portfolio-card h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+        .portfolio-card .card-category {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--blue);
+            margin-bottom: 12px;
+        }
+        .portfolio-card p {
+            font-size: 0.9rem;
+            color: var(--gray-300);
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+        .portfolio-card .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+        .portfolio-card .features span {
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--gray-300);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 2px 14px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .portfolio-card .card-footer {
+            padding: 16px 28px 28px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .portfolio-card .card-footer .btn {
+            flex: 1;
+            justify-content: center;
+            padding: 10px 16px;
+            font-size: 0.8rem;
+            min-width: 90px;
+        }
+
+        /* ===== CONTROL ===== */
+        .control {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 40px;
+        }
+        .control-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-sm);
+            padding: 18px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: var(--transition);
+        }
+        .control-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateX(6px);
+            border-color: rgba(59, 130, 246, 0.1);
+        }
+        .control-item .check {
+            font-size: 1.2rem;
+            color: #4ade80;
+            flex-shrink: 0;
+        }
+        .control-item span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-200);
+        }
+
+        .control-cta {
+            margin-top: 48px;
+            text-align: center;
+        }
+        .control-cta h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+        .control-cta h3 .highlight {
+            background: linear-gradient(135deg, var(--orange), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .control-cta p {
+            color: var(--gray-300);
+            margin-bottom: 24px;
+            font-size: 1.05rem;
+        }
+
+        /* ===== MULTI CABANG ===== */
+        .cabang-diagram {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius);
+            padding: 48px 36px;
+            max-width: 740px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            margin: 40px auto 0;
+        }
+        .cabang-diagram .owner {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--white);
+            display: inline-block;
+            padding: 10px 36px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 20px;
+        }
+        .cabang-diagram .line {
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+            margin: 0 auto;
+        }
+        .cabang-diagram .branches {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 16px 0;
+        }
+        .cabang-diagram .branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .cabang-diagram .branch .name {
+            font-weight: 600;
+            color: var(--white);
+            font-size: 0.95rem;
+            padding: 8px 24px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .cabang-diagram .branch .sub {
+            font-size: 0.7rem;
+            color: var(--gray-400);
+        }
+        .cabang-diagram .branch .sub-items {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .cabang-diagram .branch .sub-items span {
+            font-size: 0.65rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2px 14px;
+            border-radius: var(--radius-full);
+            color: var(--gray-300);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .cabang-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .cabang-features span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--gray-300);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* ===== DATABASE ===== */
+        .database-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 40px;
+        }
+        .database-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-sm);
+            padding: 20px 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition);
+            font-weight: 600;
+            color: var(--gray-200);
+            font-size: 0.9rem;
+        }
+        .database-item:hover {
+            border-color: rgba(59, 130, 246, 0.15);
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .database-item .icon {
+            display: block;
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+        }
+
+        /* ===== CUSTOM ===== */
+        .custom-steps {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin: 40px 0 32px;
+        }
+        .custom-step {
+            text-align: center;
+            padding: 24px 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition);
+        }
+        .custom-step:hover {
+            border-color: rgba(59, 130, 246, 0.15);
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-step .num {
+            display: inline-block;
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            color: var(--white);
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.85rem;
+            line-height: 34px;
+            margin-bottom: 10px;
+        }
+        .custom-step .label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-200);
+        }
+
+        /* ===== PRICING ===== */
+        .pricing-box {
+            max-width: 640px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius);
+            padding: 48px 52px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+        }
+        .pricing-box h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        .pricing-box p {
+            color: var(--gray-300);
+            margin: 14px 0 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .pricing-box .btn {
+            padding: 16px 52px;
+            font-size: 1rem;
+        }
+
+        /* ===== CONTACT FORM ===== */
+        .contact-form {
+            max-width: 640px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius);
+            padding: 44px 48px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+        }
+        .contact-form .form-group {
+            margin-bottom: 22px;
+        }
+        .contact-form label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--gray-200);
+            margin-bottom: 6px;
+        }
+        .contact-form label .required {
+            color: #f87171;
+        }
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-family: var(--font);
+            font-size: 0.95rem;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--white);
+        }
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--gray-400);
+        }
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+        .contact-form .btn {
+            width: 100%;
+            justify-content: center;
+            padding: 16px;
+            font-size: 1rem;
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 36px;
+            background: rgba(74, 222, 128, 0.06);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(74, 222, 128, 0.12);
+        }
+        .form-success .icon {
+            font-size: 3.2rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .form-success h4 {
+            color: #4ade80;
+            font-size: 1.3rem;
+        }
+        .form-success p {
+            color: var(--gray-300);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 60px 0 32px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand .brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--white);
+            display: block;
+            margin-bottom: 8px;
+        }
+        .footer-brand .brand .dot {
+            color: var(--blue);
+        }
+        .footer-brand p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            max-width: 300px;
+            color: var(--gray-400);
+        }
+        .footer-col h5 {
+            font-weight: 600;
+            color: var(--white);
+            font-size: 0.95rem;
+            margin-bottom: 14px;
+        }
+        .footer-col a {
+            display: block;
+            font-size: 0.85rem;
+            padding: 4px 0;
+            transition: var(--transition);
+            color: var(--gray-400);
+        }
+        .footer-col a:hover {
+            color: var(--white);
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 24px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+
+        /* ===== FLOATING WHATSAPP ===== */
+        .floating-wa {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            width: 62px;
+            height: 62px;
+            background: linear-gradient(135deg, #25d366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+            box-shadow: 0 4px 32px rgba(37, 211, 102, 0.35);
+            transition: var(--transition);
+            animation: pulse-wa 3s ease-in-out infinite;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .floating-wa:hover {
+            transform: scale(1.08) rotate(-4deg);
+            box-shadow: 0 8px 48px rgba(37, 211, 102, 0.5);
+        }
+
+        @keyframes pulse-wa {
+            0%,
+            100% {
+                box-shadow: 0 4px 32px rgba(37, 211, 102, 0.35);
+            }
+            50% {
+                box-shadow: 0 4px 56px rgba(37, 211, 102, 0.6);
+            }
+        }
+
+        /* ===== DEMO BADGE ===== */
+        .demo-badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            background: rgba(245, 158, 11, 0.12);
+            color: #fbbf24;
+            padding: 2px 16px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(245, 158, 11, 0.12);
+        }
+
+        /* ===== DEMO PAGE ===== */
+        .demo-page {
+            display: none;
+            padding: 100px 0 60px;
+            min-height: 100vh;
+            background: var(--navy);
+        }
+        .demo-page.active {
+            display: block;
+        }
+
+        .demo-page .demo-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .demo-page .demo-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        .demo-page .demo-header .back-btn {
+            font-size: 0.85rem;
+            color: var(--blue);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font);
+        }
+        .demo-page .demo-header .back-btn:hover {
+            color: var(--white);
+        }
+
+        .demo-page .demo-notice {
+            background: rgba(245, 158, 11, 0.06);
+            border-radius: var(--radius-sm);
+            padding: 14px 24px;
+            border: 1px solid rgba(245, 158, 11, 0.08);
+            color: #fbbf24;
+            font-size: 0.85rem;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .demo-page .demo-notice .btn {
+            padding: 4px 18px;
+            font-size: 0.7rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--white);
+        }
+        .demo-page .demo-notice .btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* ===== DEMO POS ===== */
+        .demo-pos-container {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius);
+            padding: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+        }
+
+        .demo-pos-nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        .demo-pos-nav button {
+            padding: 8px 22px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            transition: var(--transition);
+            background: transparent;
+            border: 1px solid transparent;
+            font-family: var(--font);
+            cursor: pointer;
+        }
+        .demo-pos-nav button:hover {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .demo-pos-nav button.active {
+            color: var(--white);
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            border-color: transparent;
+            box-shadow: 0 4px 16px var(--blue-glow);
+        }
+
+        .demo-pos-panel {
+            display: none;
+        }
+        .demo-pos-panel.active {
+            display: block;
+        }
+
+        .demo-pos-dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .demo-pos-stat {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .demo-pos-stat .label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--gray-400);
+            font-weight: 600;
+        }
+        .demo-pos-stat .value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-top: 2px;
+        }
+        .demo-pos-stat .value.green {
+            color: #4ade80;
+        }
+        .demo-pos-stat .value.orange {
+            color: #fbbf24;
+        }
+        .demo-pos-stat .value.red {
+            color: #f87171;
+        }
+
+        .demo-pos-table-wrap {
+            overflow-x: auto;
+        }
+        .demo-pos-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        .demo-pos-table th {
+            text-align: left;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.02);
+            font-weight: 600;
+            color: var(--gray-300);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.04);
+        }
+        .demo-pos-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            color: var(--gray-200);
+        }
+        .demo-pos-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .demo-pos-table .btn-sm {
+            padding: 4px 14px;
+            font-size: 0.7rem;
+        }
+
+        .demo-pos-cart {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .demo-pos-cart h4 {
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .demo-pos-cart .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.9rem;
+            color: var(--gray-200);
+        }
+        .demo-pos-cart .cart-item:last-child {
+            border-bottom: none;
+        }
+        .demo-pos-cart .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding-top: 12px;
+            margin-top: 8px;
+            border-top: 2px solid rgba(255, 255, 255, 0.06);
+            color: var(--white);
+        }
+        .demo-pos-cart .cart-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .demo-pos-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .demo-pos-form .full {
+            grid-column: 1 / -1;
+        }
+        .demo-pos-form label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-400);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .demo-pos-form input,
+        .demo-pos-form select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--white);
+        }
+        .demo-pos-form input:focus,
+        .demo-pos-form select:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            .hero-content .subheadline {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-wa {
+                justify-content: center;
+            }
+            .hero-visual .mockup {
+                max-width: 420px;
+                margin: 0 auto;
+            }
+
+            .value-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .control-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .database-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .custom-steps {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .cabang-features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 76px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 22, 40, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 28px 24px;
+                gap: 18px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                font-size: 1rem;
+                padding: 8px 0;
+            }
+            .nav-cta .btn {
+                padding: 8px 18px;
+                font-size: 0.75rem;
+            }
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+                min-height: auto;
+            }
+            .hero-content h1 {
+                font-size: 2.4rem;
+            }
+            .hero-content .subheadline {
+                font-size: 1rem;
+            }
+            .hero-buttons .btn {
+                padding: 14px 28px;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+            .section-padding {
+                padding: 60px 0;
+            }
+
+            .problem-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+            .value-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            .control-grid {
+                grid-template-columns: 1fr;
+            }
+            .database-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .custom-steps {
+                grid-template-columns: 1fr 1fr;
+            }
+            .cabang-features {
+                grid-template-columns: 1fr 1fr;
+            }
+            .cabang-diagram .branches {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .cabang-diagram .line {
+                height: 20px;
+            }
+
+            .demo-pos-dashboard {
+                grid-template-columns: 1fr 1fr;
+            }
+            .demo-pos-form {
+                grid-template-columns: 1fr;
+            }
+            .demo-pos-form .full {
+                grid-column: 1;
+            }
+
+            .contact-form {
+                padding: 28px 20px;
+            }
+            .pricing-box {
+                padding: 32px 24px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .floating-wa {
+                width: 54px;
+                height: 54px;
+                font-size: 1.6rem;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+            .demo-pos-dashboard {
+                grid-template-columns: 1fr;
+            }
+            .database-grid {
+                grid-template-columns: 1fr;
+            }
+            .custom-steps {
+                grid-template-columns: 1fr;
+            }
+            .cabang-features {
+                grid-template-columns: 1fr;
+            }
+            .portfolio-card .card-footer {
+                flex-direction: column;
+            }
+            .portfolio-card .card-footer .btn {
+                width: 100%;
+            }
+            .demo-pos-nav button {
+                padding: 6px 14px;
+                font-size: 0.7rem;
+            }
+            .demo-pos-cart .cart-actions {
+                flex-direction: column;
+            }
+            .demo-pos-cart .cart-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+        }
+
+        .stagger>* {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .stagger.visible>*:nth-child(1) {
+            transition-delay: 0.05s;
+        }
+        .stagger.visible>*:nth-child(2) {
+            transition-delay: 0.10s;
+        }
+        .stagger.visible>*:nth-child(3) {
+            transition-delay: 0.15s;
+        }
+        .stagger.visible>*:nth-child(4) {
+            transition-delay: 0.20s;
+        }
+        .stagger.visible>*:nth-child(5) {
+            transition-delay: 0.25s;
+        }
+        .stagger.visible>*:nth-child(6) {
+            transition-delay: 0.30s;
+        }
+        .stagger.visible>*:nth-child(7) {
+            transition-delay: 0.35s;
+        }
+        .stagger.visible>*:nth-child(8) {
+            transition-delay: 0.40s;
+        }
+        .stagger.visible>* {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typing effect for hero (optional) */
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background: var(--blue);
+            margin-left: 4px;
+            vertical-align: text-bottom;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== BACKGROUND EFFECTS ===== -->
+    <div class="bg-canvas">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+    <div class="grid-overlay"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Navigasi utama">
+        <div class="container">
+            <a href="#home" class="nav-brand" aria-label="MALELA Beranda">
+                MALELA<span class="dot">.</span>
+                <small>Digital Solution</small>
+            </a>
+
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Beranda</a>
+                <a href="#portfolio">Aplikasi</a>
+                <a href="#control">Solusi</a>
+                <a href="#contact">Kontak</a>
+                <div class="nav-cta">
+                    <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20tertarik%20dengan%20layanan%20pembuatan%20aplikasi%20bisnis." target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">Konsultasi</a>
+                </div>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+
+        <!-- ===== HERO ===== -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="badge">
+                        <span class="pulse"></span>
+                        Karyawan menjalankan operasional. Owner tetap memegang kendali.
+                    </div>
+                    <h1>
+                        BANGUN SISTEM DIGITAL <br />
+                        <span class="highlight">UNTUK BISNIS ANDA</span>
+                    </h1>
+                    <p class="subheadline">
+                        Dari kasir, stok, hutang, HR, warehouse hingga sistem multi-cabang — MALELA membantu bisnis Anda bekerja lebih terstruktur, terukur, dan mudah dikontrol.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#portfolio" class="btn btn-primary">LIHAT DEMO APLIKASI</a>
+                        <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20tertarik%20dengan%20layanan%20pembuatan%20aplikasi%20bisnis." target="_blank" rel="noopener" class="btn btn-outline">KONSULTASI GRATIS</a>
+                    </div>
+                    <div class="hero-wa">
+                        <span class="wa-icon">📱</span>
+                        Hubungi kami: <strong>0812-8256-7812</strong>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="mockup">
+                        <div class="mockup-header">
+                            <span class="mockup-dot"></span>
+                            <span class="mockup-dot"></span>
+                            <span class="mockup-dot"></span>
+                            <span style="margin-left:8px;font-size:0.7rem;color:var(--gray-400);">MALELA Dashboard</span>
+                        </div>
+                        <div class="mockup-body">
+                            <div class="mockup-card">
+                                <div class="label">Omzet Hari Ini</div>
+                                <div class="value green">Rp 2,45 Jt</div>
+                            </div>
+                            <div class="mockup-card">
+                                <div class="label">Transaksi</div>
+                                <div class="value">32</div>
+                            </div>
+                            <div class="mockup-card">
+                                <div class="label">Profit</div>
+                                <div class="value orange">Rp 750 rb</div>
+                            </div>
+                            <div class="mockup-card">
+                                <div class="label">Stok Menipis</div>
+                                <div class="value blue">7</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROBLEM ===== -->
+        <section class="problem section-padding" id="problem">
+            <div class="container">
+                <div class="text-center fade-up">
+                    <span class="section-label">MASALAH</span>
+                    <h2 class="section-title">MASIH MENGALAMI <span class="gradient">HAL INI?</span></h2>
+                    <p class="section-sub mx-auto">Kami paham tantangan yang dihadapi pemilik bisnis. Mari kita ubah.</p>
+                </div>
+
+                <div class="problem-grid">
+                    <div class="problem-col fade-up">
+                        <h3>❌ Tantangan</h3>
+                        <ul>
+                            <li><span class="icon cross">✕</span> Tidak tahu penjualan sebenarnya</li>
+                            <li><span class="icon cross">✕</span> Stok sering selisih</li>
+                            <li><span class="icon cross">✕</span> Hutang pelanggan sulit dipantau</li>
+                            <li><span class="icon cross">✕</span> Laporan masih menggunakan Excel/manual</li>
+                            <li><span class="icon cross">✕</span> Sulit mengawasi karyawan</li>
+                            <li><span class="icon cross">✕</span> Owner harus selalu berada di lokasi</li>
+                            <li><span class="icon cross">✕</span> Sulit memantau cabang</li>
+                            <li><span class="icon cross">✕</span> Data bisnis tersebar di banyak tempat</li>
+                        </ul>
+                    </div>
+                    <div class="problem-col fade-up">
+                        <h3>✅ Solusi MALELA</h3>
+                        <ul>
+                            <li><span class="icon check">✓</span> Laporan real-time dari mana saja</li>
+                            <li><span class="icon check">✓</span> Stok terupdate otomatis</li>
+                            <li><span class="icon check">✓</span> Monitoring hutang dan jatuh tempo</li>
+                            <li><span class="icon check">✓</span> Sistem digital terintegrasi</li>
+                            <li><span class="icon check">✓</span> Aktivitas karyawan tercatat</li>
+                            <li><span class="icon check">✓</span> Akses dari jarak jauh</li>
+                            <li><span class="icon check">✓</span> Multi-cabang dalam satu sistem</li>
+                            <li><span class="icon check">✓</span> Semua data terpusat</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="problem-solution fade-up">
+                    <h3>MALELA MEMBANTU MENGUBAHNYA MENJADI <span class="gradient">SISTEM</span></h3>
+                    <p>Dari yang manual dan tersebar, menjadi terstruktur, terukur, dan terkontrol.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== VALUE PROPOSITION ===== -->
+        <section class="section-padding" id="value">
+            <div class="container">
+                <div class="text-center fade-up">
+                    <span class="section-label">NILAI KAMI</span>
+                    <h2 class="section-title">Mengapa <span class="gradient">MALELA?</span></h2>
+                    <p class="section-sub mx-auto">Kami membangun sistem yang membantu bisnis Anda tumbuh dengan kontrol penuh.</p>
+                </div>
+
+                <div class="value-grid stagger" id="valueGrid">
+                    <div class="value-card">
+                        <span class="emoji">📊</span>
+                        <h4>LEBIH TERUKUR</h4>
+                        <p>Data bisnis tercatat dan dapat digunakan untuk mengambil keputusan.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="emoji">🔐</span>
+                        <h4>LEBIH TERKONTROL</h4>
+                        <p>Aktivitas operasional dicatat dan dipantau berdasarkan hak akses user.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="emoji">⚡</span>
+                        <h4>LEBIH EFISIEN</h4>
+                        <p>Kurangi pekerjaan manual dan pencatatan berulang.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="emoji">🚀</span>
+                        <h4>SIAP BERKEMBANG</h4>
+                        <p>Sistem dapat dikembangkan mengikuti pertumbuhan bisnis.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PORTFOLIO ===== -->
+        <section class="portfolio section-padding" id="portfolio">
+            <div class="container">
+                <div class="text-center fade-up">
+                    <span class="section-label">PORTFOLIO</span>
+                    <h2 class="section-title">APLIKASI YANG DAPAT <span class="gradient">KAMI BUAT</span></h2>
+                    <p class="section-sub mx-auto">Pilih solusi yang sesuai dengan kebutuhan bisnis Anda. Semua dapat disesuaikan.</p>
+                </div>
+
+                <div class="portfolio-grid stagger" id="portfolioGrid">
+                    <!-- Card POS -->
+                    <div class="portfolio-card fade-up">
+                        <div class="card-body">
+                            <div class="card-icon">🛒</div>
+                            <h4>POS &amp; KASIR</h4>
+                            <div class="card-category">Retail • Warung • Toko</div>
+                            <p>Sistem kasir lengkap dengan manajemen produk, stok, transaksi, dan laporan omzet.</p>
+                            <div class="features">
+                                <span>Produk</span>
+                                <span>Stok</span>
+                                <span>Transaksi</span>
+                                <span>Omzet</span>
+                                <span>Profit/Rugi</span>
+                                <span>Hutang</span>
+                                <span>WhatsApp</span>
+                                <span>Multi User</span>
+                                <span>Multi Cabang</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-sm" onclick="openDemo('pos')">COBA DEMO</button>
+                            <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20tertarik%20dengan%20aplikasi%20POS%2FKasir%20dan%20ingin%20melihat%20demonya." target="_blank" rel="noopener" class="btn btn-outline btn-sm">Konsultasi</a>
+                        </div>
+                    </div>
+
+                    <!-- Card Inventory -->
+                    <div class="portfolio-card fade-up">
+                        <div class="card-body">
+                            <div class="card-icon">📦</div>
+                            <h4>INVENTORY MANAGEMENT</h4>
+                            <div class="card-category">Warehouse • Distributor</div>
+                            <p>Kelola inbound, outbound, dan stok barang dengan monitoring dan dashboard real-time.</p>
+                            <div class="features">
+                                <span>Inbound</span>
+                                <span>Outbound</span>
+                                <span>Stock</span>
+                                <span>Monitoring</span>
+                                <span>History</span>
+                                <span>Dashboard</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-sm" onclick="openDemo('inventory')">COBA DEMO</button>
+                            <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20tertarik%20dengan%20aplikasi%20Inventory%20Management." target="_blank" rel="noopener" class="btn btn-outline btn-sm">Konsultasi</a>
+                        </div>
+                    </div>
+
+                    <!-- Card HR -->
+                    <div class="portfolio-card fade-up">
+                        <div class="card-body">
+                            <div class="card-icon">👥</div>
+                            <h4>HR MANAGEMENT</h4>
+                            <div class="card-category">SDM • Kepegawaian</div>
+                            <p>Kelola absensi, izin, cuti, lembur, dan dashboard HR dengan sistem approval.</p>
+                            <div class="features">
+                                <span>Absensi</span>
+                                <span>Foto Absensi</span>
+                                <span>Geolocation</span>
+                                <span>Shift</span>
+                                <span>Lembur</span>
+                                <span>Izin</span>
+                                <span>Cuti</span>
+                                <span>Dashboard HR</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-sm" onclick="openDemo('hr')">COBA DEMO</button>
+                            <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20tertarik%20dengan%20aplikasi%20HR%20Management." target="_blank" rel="noopener" class="btn btn-outline btn-sm">Konsultasi</a>
+                        </div>
+                    </div>
+
+                    <!-- Card QA -->
+                    <div class="portfolio-card fade-up">
+                        <div class="card-body">
+                            <div class="card-icon">🔍</div>
+                            <h4>QUALITY MANAGEMENT</h4>
+                            <div class="card-category">Quality Control • Audit</div>
+                            <p>Kelola temuan, inspeksi, dan tindak lanjut dengan sistem status dan dashboard.</p>
+                            <div class="features">
+                                <span>Finding</span>
+                                <span>Inspection</span>
+                                <span>Foto</span>
+                                <span>Status</span>
+                                <span>Follow-up</span>
+                                <span>Closing</span>
+                                <span>Dashboard</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-sm" onclick="openDemo('qa')">COBA DEMO</button>
+                            <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20tertarik%20dengan%20aplikasi%20Quality%20Management." target="_blank" rel="noopener" class="btn btn-outline btn-sm">Konsultasi</a>
+                        </div>
+                    </div>
+
+                    <!-- Card Swimming -->
+                    <div class="portfolio-card fade-up">
+                        <div class="card-body">
+                            <div class="card-icon">🏊</div>
+                            <h4>MANAGEMENT SYSTEM</h4>
+                            <div class="card-category">Kolam Renang • Training Center</div>
+                            <p>Kelola customer, coach, jadwal, pembayaran, dan booking dalam satu sistem.</p>
+                            <div class="features">
+                                <span>Customer</span>
+                                <span>Coach</span>
+                                <span>Jadwal</span>
+                                <span>Pembayaran</span>
+                                <span>Booking</span>
+                                <span>Dashboard</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-sm" onclick="openDemo('swimming')">COBA DEMO</button>
+                            <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20tertarik%20dengan%20aplikasi%20Management%20System." target="_blank" rel="noopener" class="btn btn-outline btn-sm">Konsultasi</a>
+                        </div>
+                    </div>
+
+                    <!-- Card Logistics -->
+                    <div class="portfolio-card fade-up">
+                        <div class="card-body">
+                            <div class="card-icon">🚚</div>
+                            <h4>LOGISTICS MANAGEMENT</h4>
+                            <div class="card-category">Logistik • Rantai Pasok</div>
+                            <p>Monitoring inbound, outbound, tracking, dan pelaporan logistik secara real-time.</p>
+                            <div class="features">
+                                <span>Inbound</span>
+                                <span>Outbound</span>
+                                <span>Monitoring</span>
+                                <span>Tracking</span>
+                                <span>Dashboard</span>
+                                <span>Reporting</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-sm" onclick="openDemo('logistics')">COBA DEMO</button>
+                            <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20tertarik%20dengan%20aplikasi%20Logistics%20Management." target="_blank" rel="noopener" class="btn btn-outline btn-sm">Konsultasi</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== DEMO PAGE ===== -->
+        <section class="demo-page" id="demoPage">
+            <div class="container">
+                <div class="demo-header">
+                    <div>
+                        <span class="demo-badge">DEMO</span>
+                        <h2 id="demoTitle">Demo Aplikasi</h2>
+                    </div>
+                    <button class="back-btn" onclick="closeDemo()">← Kembali ke Portfolio</button>
+                </div>
+                <div class="demo-notice">
+                    ⚡ Ini adalah simulasi. Data yang digunakan bukan data bisnis sebenarnya.
+                    <button class="btn btn-sm" onclick="resetDemo()">RESET DEMO</button>
+                </div>
+
+                <div id="demoContent">
+                    <!-- Content loaded by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTROL ===== -->
+        <section class="control section-padding" id="control">
+            <div class="container">
+                <div class="text-center fade-up">
+                    <span class="section-label" style="background:rgba(59,130,246,0.08);color:var(--blue);">KONTROL</span>
+                    <h2 class="section-title">🔐 SISTEM KONTROL UNTUK MEMBANTU <span class="gradient">MENGURANGI RISIKO KECURANGAN</span></h2>
+                    <p class="section-sub mx-auto">Membantu mengurangi risiko kecurangan dan meningkatkan transparansi operasional.</p>
+                </div>
+
+                <div class="control-grid stagger" id="controlGrid">
+                    <div class="control-item"><span class="check">✓</span> Hak akses berdasarkan role</div>
+                    <div class="control-item"><span class="check">✓</span> Riwayat transaksi</div>
+                    <div class="control-item"><span class="check">✓</span> Kontrol stok</div>
+                    <div class="control-item"><span class="check">✓</span> Monitoring aktivitas user</div>
+                    <div class="control-item"><span class="check">✓</span> Approval tertentu</div>
+                    <div class="control-item"><span class="check">✓</span> Audit trail</div>
+                    <div class="control-item"><span class="check">✓</span> Pemisahan akses owner dan karyawan</div>
+                    <div class="control-item"><span class="check">✓</span> Monitoring cabang</div>
+                </div>
+
+                <div class="control-cta fade-up">
+                    <h3>KARYAWAN MENJALANKAN OPERASIONAL. <span class="highlight">OWNER TETAP MEMEGANG KENDALI.</span></h3>
+                    <p>Sistem membantu owner mengetahui apa yang terjadi di dalam bisnis tanpa harus selalu berada di lokasi.</p>
+                    <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20ingin%20tahu%20lebih%20lanjut%20tentang%20sistem%20kontrol%20untuk%20bisnis%20saya." target="_blank" rel="noopener" class="btn btn-whatsapp">KONSULTASI SISTEM KONTROL</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MULTI CABANG ===== -->
+        <section class="section-padding" id="cabang">
+            <div class="container">
+                <div class="text-center fade-up">
+                    <span class="section-label">MULTI CABANG</span>
+                    <h2 class="section-title">SATU SISTEM UNTUK <span class="gradient">BANYAK CABANG</span></h2>
+                    <p class="section-sub mx-auto">Kelola semua cabang dari satu dashboard. Monitoring, laporan, dan kontrol terpusat.</p>
+                </div>
+
+                <div class="cabang-diagram fade-up">
+                    <div class="owner">👤 OWNER</div>
+                    <div class="line"></div>
+                    <div class="branches">
+                        <div class="branch">
+                            <div class="name">CABANG A</div>
+                            <div class="sub-items"><span>Kasir</span><span>Staff</span></div>
+                        </div>
+                        <div class="branch">
+                            <div class="name">CABANG B</div>
+                            <div class="sub-items"><span>Kasir</span><span>Staff</span></div>
+                        </div>
+                        <div class="branch">
+                            <div class="name">CABANG C</div>
+                            <div class="sub-items"><span>Kasir</span><span>Staff</span></div>
+                        </div>
+                    </div>
+                    <div class="cabang-features">
+                        <span>Multi User</span>
+                        <span>Multi Cabang</span>
+                        <span>Hak Akses</span>
+                        <span>Monitoring</span>
+                        <span>Laporan per Cabang</span>
+                        <span>Konsolidasi Data</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== DATABASE ===== -->
+        <section class="database section-padding" id="database">
+            <div class="container">
+                <div class="text-center fade-up">
+                    <span class="section-label">DATABASE</span>
+                    <h2 class="section-title">DATA BISNIS TERSIMPAN SECARA <span class="gradient">TERSTRUKTUR</span></h2>
+                    <p class="section-sub mx-auto">Semua data terhubung dalam satu sistem yang terintegrasi dan dapat dikembangkan.</p>
+                </div>
+
+                <div class="database-grid stagger" id="databaseGrid">
+                    <div class="database-item"><span class="icon">📦</span> Produk</div>
+                    <div class="database-item"><span class="icon">🧾</span> Transaksi</div>
+                    <div class="database-item"><span class="icon">📊</span> Stok</div>
+                    <div class="database-item"><span class="icon">💰</span> Hutang</div>
+                    <div class="database-item"><span class="icon">👤</span> User</div>
+                    <div class="database-item"><span class="icon">🏢</span> Cabang</div>
+                    <div class="database-item"><span class="icon">📈</span> Laporan</div>
+                    <div class="database-item"><span class="icon">🔗</span> Integrasi</div>
+                </div>
+
+                <div class="text-center fade-up" style="margin-top:24px;">
+                    <p style="color:var(--gray-400);font-size:0.95rem;">Data dikelola secara terstruktur dan dapat diintegrasikan dengan database sesuai kebutuhan bisnis.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CUSTOM APP ===== -->
+        <section class="custom section-padding" id="custom">
+            <div class="container">
+                <div class="text-center fade-up">
+                    <span class="section-label">CUSTOM</span>
+                    <h2 class="section-title">BUTUH SISTEM YANG <span class="gradient">BERBEDA?</span></h2>
+                    <p class="section-sub mx-auto">Aplikasi dapat disesuaikan dengan proses bisnis Anda. Bukan memaksa bisnis mengikuti aplikasi.</p>
+                </div>
+
+                <div class="custom-steps stagger" id="customSteps">
+                    <div class="custom-step"><div class="num">1</div><div class="label">Kebutuhan Bisnis</div></div>
+                    <div class="custom-step"><div class="num">2</div><div class="label">Analisa Proses</div></div>
+                    <div class="custom-step"><div class="num">3</div><div class="label">Desain Sistem</div></div>
+                    <div class="custom-step"><div class="num">4</div><div class="label">Development</div></div>
+                    <div class="custom-step"><div class="num">5</div><div class="label">Implementasi</div></div>
+                </div>
+
+                <div class="text-center fade-up">
+                    <h3 style="font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:14px;">CERITAKAN KEBUTUHAN BISNIS ANDA</h3>
+                    <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20ingin%20membuat%20aplikasi%20custom%20untuk%20bisnis%20saya." target="_blank" rel="noopener" class="btn btn-primary">KONSULTASI GRATIS</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PRICING ===== -->
+        <section class="section-padding" id="pricing">
+            <div class="container">
+                <div class="text-center fade-up">
+                    <span class="section-label">HARGA</span>
+                    <h2 class="section-title">HARGA MENYESUAIKAN <span class="gradient">KEBUTUHAN</span></h2>
+                </div>
+
+                <div class="pricing-box fade-up">
+                    <h3>💼 Sistem Dibangun Sesuai Kebutuhan</h3>
+                    <p>
+                        Karena setiap bisnis memiliki:<br />
+                        <strong>jumlah user • cabang • fitur • kompleksitas • integrasi • kebutuhan database</strong>
+                    </p>
+                    <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20ingin%20minta%20estimasi%20harga%20untuk%20aplikasi%20bisnis." target="_blank" rel="noopener" class="btn btn-primary">MINTA ESTIMASI</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT ===== -->
+        <section class="section-padding" id="contact">
+            <div class="container">
+                <div class="text-center fade-up">
+                    <span class="section-label">KONTAK</span>
+                    <h2 class="section-title">MULAI <span class="gradient">BERBICARA</span></h2>
+                    <p class="section-sub mx-auto">Isi form di bawah atau hubungi kami langsung melalui WhatsApp.</p>
+                </div>
+
+                <div class="contact-form fade-up" id="contactForm">
+                    <form id="leadForm" novalidate>
+                        <div class="form-group">
+                            <label for="leadName">Nama Lengkap <span class="required">*</span></label>
+                            <input type="text" id="leadName" placeholder="Nama Anda" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="leadBusiness">Nama Bisnis <span class="required">*</span></label>
+                            <input type="text" id="leadBusiness" placeholder="Nama Bisnis / Usaha" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="leadPhone">Nomor WhatsApp <span class="required">*</span></label>
+                            <input type="tel" id="leadPhone" placeholder="0812-8256-7812" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="leadApp">Aplikasi yang Dibutuhkan</label>
+                            <select id="leadApp">
+                                <option value="">Pilih aplikasi...</option>
+                                <option value="POS & Kasir">POS &amp; Kasir</option>
+                                <option value="Inventory Management">Inventory Management</option>
+                                <option value="HR Management">HR Management</option>
+                                <option value="Quality Management">Quality Management</option>
+                                <option value="Management System">Management System</option>
+                                <option value="Logistics Management">Logistics Management</option>
+                                <option value="Custom">Custom / Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="leadMessage">Deskripsi Kebutuhan <span class="required">*</span></label>
+                            <textarea id="leadMessage" placeholder="Ceritakan kebutuhan bisnis Anda..." required minlength="10"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">KIRIM KONSULTASI</button>
+                    </form>
+                    <div class="form-success" id="formSuccess">
+                        <span class="icon">✅</span>
+                        <h4>Terima kasih!</h4>
+                        <p>Data Anda telah diterima. Tim MALELA akan menghubungi Anda segera.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="brand">MALELA<span class="dot">.</span></span>
+                    <p>Digital Solution for Business. Membantu bisnis membangun sistem digital yang lebih terukur, efisien, dan terkontrol.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Layanan</h5>
+                    <a href="#portfolio">Aplikasi</a>
+                    <a href="#control">Solusi</a>
+                    <a href="#custom">Custom</a>
+                    <a href="#contact">Kontak</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Kategori</h5>
+                    <a href="#portfolio">POS &amp; Kasir</a>
+                    <a href="#portfolio">Inventory</a>
+                    <a href="#portfolio">HR Management</a>
+                    <a href="#portfolio">Quality</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Hubungi</h5>
+                    <a href="https://wa.me/6281282567812" target="_blank" rel="noopener">WhatsApp: 0812-8256-7812</a>
+                    <a href="#contact">Konsultasi Gratis</a>
+                    <a href="#pricing">Estimasi Harga</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 MALELA — Digital Solution for Business
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== FLOATING WHATSAPP ===== -->
+    <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20tertarik%20dengan%20layanan%20pembuatan%20aplikasi%20bisnis." target="_blank" rel="noopener" class="floating-wa" aria-label="Hubungi via WhatsApp">
+        💬
+    </a>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ============================================================
+        //  NAVBAR
+        // ============================================================
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        hamburger.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            hamburger.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ============================================================
+        //  SCROLL ANIMATIONS
+        // ============================================================
+        const fadeElements = document.querySelectorAll('.fade-up, .fade-in, .stagger');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -30px 0px'
+        });
+
+        fadeElements.forEach(el => observer.observe(el));
+        document.querySelectorAll('.value-card, .portfolio-card, .control-item, .database-item, .custom-step').forEach(el =>
+            observer.observe(el));
+
+        // ============================================================
+        //  DEMO SYSTEM
+        // ============================================================
+        const demoPage = document.getElementById('demoPage');
+        const demoTitle = document.getElementById('demoTitle');
+        const demoContent = document.getElementById('demoContent');
+
+        let posProducts = [
+            { id: 1, name: 'Indomie Goreng', price: 3500, stock: 25 },
+            { id: 2, name: 'Aqua 600ml', price: 4000, stock: 8 },
+            { id: 3, name: 'Gula 1kg', price: 17000, stock: 4 },
+            { id: 4, name: 'Mie Sedap', price: 3200, stock: 15 },
+            { id: 5, name: 'Teh Pucuk 350ml', price: 4500, stock: 12 },
+        ];
+
+        let posCart = [];
+        let posTransactions = [
+            { id: 1, date: '2026-08-11 10:30', total: 35000, method: 'Cash', items: 3 },
+            { id: 2, date: '2026-08-11 11:15', total: 22000, method: 'QRIS', items: 2 },
+            { id: 3, date: '2026-08-11 13:45', total: 51000, method: 'Debit', items: 4 },
+        ];
+
+        let posSalesToday = 2450000;
+        let posProfit = 750000;
+        let posTransCount = 32;
+        let posDebt = 350000;
+        let posLowStock = 7;
+
+        let currentDemo = null;
+
+        function openDemo(app) {
+            currentDemo = app;
+            const names = {
+                pos: 'POS & KASIR',
+                inventory: 'INVENTORY MANAGEMENT',
+                hr: 'HR MANAGEMENT',
+                qa: 'QUALITY MANAGEMENT',
+                swimming: 'MANAGEMENT SYSTEM',
+                logistics: 'LOGISTICS MANAGEMENT'
+            };
+            demoTitle.textContent = names[app] || 'Demo Aplikasi';
+
+            document.querySelectorAll('main > section:not(.demo-page)').forEach(el => el.style.display = 'none');
+            demoPage.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            renderDemoContent(app);
+        }
+
+        function closeDemo() {
+            demoPage.classList.remove('active');
+            document.querySelectorAll('main > section:not(.demo-page)').forEach(el => el.style.display = '');
+            setTimeout(() => {
+                fadeElements.forEach(el => observer.observe(el));
+            }, 100);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderDemoContent(app) {
+            if (app === 'pos') {
+                renderDemoPOS();
+            } else {
+                demoContent.innerHTML = `
+                        <div style="text-align:center;padding:80px 20px;background:rgba(255,255,255,0.02);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.04);">
+                            <div style="font-size:4rem;margin-bottom:16px;">🚧</div>
+                            <h3 style="font-size:1.4rem;color:var(--white);margin-bottom:8px;">Demo Sedang dalam Pengembangan</h3>
+                            <p style="color:var(--gray-400);max-width:480px;margin:0 auto 20px;">Demo untuk aplikasi ini akan segera hadir. Sementara itu, silakan konsultasikan kebutuhan Anda dengan tim MALELA.</p>
+                            <a href="https://wa.me/6281282567812?text=Halo%20MALELA%2C%20saya%20tertarik%20dengan%20aplikasi%20${encodeURIComponent(demoTitle.textContent)}." target="_blank" rel="noopener" class="btn btn-primary">KONSULTASI SEKARANG</a>
+                            <br><br>
+                            <button class="btn btn-outline" onclick="closeDemo()">← Kembali</button>
+                        </div>
+                    `;
+            }
+        }
+
+        // ============================================================
+        //  DEMO POS
+        // ============================================================
+        function renderDemoPOS() {
+            let html = `
+                    <div class="demo-pos-container">
+                        <div class="demo-pos-nav" id="posNav">
+                            <button class="active" data-panel="dashboard">Dashboard</button>
+                            <button data-panel="products">Produk</button>
+                            <button data-panel="kasir">Kasir</button>
+                            <button data-panel="transactions">Transaksi</button>
+                            <button data-panel="debt">Hutang</button>
+                        </div>
+
+                        <div class="demo-pos-panel active" id="panel-dashboard">
+                            <div class="demo-pos-dashboard">
+                                <div class="demo-pos-stat"><div class="label">Penjualan Hari Ini</div><div class="value green">Rp ${formatRupiah(posSalesToday)}</div></div>
+                                <div class="demo-pos-stat"><div class="label">Profit</div><div class="value orange">Rp ${formatRupiah(posProfit)}</div></div>
+                                <div class="demo-pos-stat"><div class="label">Transaksi</div><div class="value">${posTransCount}</div></div>
+                                <div class="demo-pos-stat"><div class="label">Hutang</div><div class="value red">Rp ${formatRupiah(posDebt)}</div></div>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.02);border-radius:var(--radius-sm);padding:16px 20px;border:1px solid rgba(255,255,255,0.04);">
+                                <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                                    <span style="font-weight:600;color:var(--gray-200);">📊 Stok Menipis: <span style="color:#f87171;">${posLowStock}</span> produk</span>
+                                    <span style="font-size:0.8rem;color:var(--gray-400);">Update: ${new Date().toLocaleString('id-ID')}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-pos-panel" id="panel-products">
+                            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+                                <h4 style="font-weight:600;color:var(--white);">📦 Daftar Produk</h4>
+                                <button class="btn btn-primary btn-sm" onclick="addProduct()">+ Tambah Produk</button>
+                            </div>
+                            <div class="demo-pos-table-wrap">
+                                <table class="demo-pos-table">
+                                    <thead><tr><th>Nama</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr></thead>
+                                    <tbody id="productTableBody">
+                                        ${posProducts.map(p => `
+                                            <tr>
+                                                <td><strong>${p.name}</strong></td>
+                                                <td>Rp ${formatRupiah(p.price)}</td>
+                                                <td>${p.stock}</td>
+                                                <td>
+                                                    <button class="btn btn-primary btn-sm" onclick="editProduct(${p.id})">Edit</button>
+                                                    <button class="btn btn-outline btn-sm" onclick="deleteProduct(${p.id})" style="border-color:#f87171;color:#f87171;">Hapus</button>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="demo-pos-panel" id="panel-kasir">
+                            <div style="display:grid;grid-template-columns:2fr 1fr;gap:24px;">
+                                <div>
+                                    <h4 style="font-weight:600;color:var(--white);margin-bottom:12px;">🛒 Pilih Produk</h4>
+                                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+                                        ${posProducts.map(p => `
+                                            <button class="btn btn-outline btn-sm" onclick="addToCart(${p.id})" style="padding:6px 16px;font-size:0.8rem;">
+                                                ${p.name} (Rp ${formatRupiah(p.price)})
+                                            </button>
+                                        `).join('')}
+                                    </div>
+                                    <div class="demo-pos-cart">
+                                        <h4>🛍️ Keranjang</h4>
+                                        <div id="cartItems">
+                                            ${posCart.length === 0 ? '<p style="color:var(--gray-400);font-size:0.9rem;">Keranjang kosong</p>' :
+                                            posCart.map(item => `
+                                                <div class="cart-item">
+                                                    <span>${item.name} × ${item.qty}</span>
+                                                    <span>Rp ${formatRupiah(item.price * item.qty)}</span>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                        <div class="cart-total">
+                                            <span>Total</span>
+                                            <span>Rp ${formatRupiah(posCart.reduce((sum, i) => sum + i.price * i.qty, 0))}</span>
+                                        </div>
+                                        <div class="cart-actions">
+                                            <button class="btn btn-primary btn-sm" onclick="checkout()">💳 Bayar</button>
+                                            <button class="btn btn-outline btn-sm" onclick="clearCart()">🗑️ Kosongkan</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 style="font-weight:600;color:var(--white);margin-bottom:12px;">💳 Metode Pembayaran</h4>
+                                    <div style="display:flex;flex-direction:column;gap:8px;">
+                                        <button class="btn btn-outline btn-sm" onclick="processPayment('Cash')">Cash</button>
+                                        <button class="btn btn-outline btn-sm" onclick="processPayment('QRIS')">QRIS</button>
+                                        <button class="btn btn-outline btn-sm" onclick="processPayment('Debit')">Debit</button>
+                                        <button class="btn btn-outline btn-sm" onclick="processPayment('Credit Card')">Credit Card</button>
+                                        <button class="btn btn-outline btn-sm" onclick="processPayment('Hutang')" style="border-color:#f59e0b;color:#fbbf24;">Hutang</button>
+                                    </div>
+                                    <div style="margin-top:16px;padding:16px;background:rgba(255,255,255,0.02);border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.04);">
+                                        <label style="font-size:0.8rem;font-weight:600;color:var(--gray-400);">Uang diterima (Cash)</label>
+                                        <input type="number" id="cashInput" placeholder="0" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04);color:var(--white);font-family:var(--font);margin-top:4px;" />
+                                        <div id="changeDisplay" style="margin-top:8px;font-weight:600;color:var(--white);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-pos-panel" id="panel-transactions">
+                            <h4 style="font-weight:600;color:var(--white);margin-bottom:12px;">📋 Riwayat Transaksi</h4>
+                            <div class="demo-pos-table-wrap">
+                                <table class="demo-pos-table">
+                                    <thead><tr><th>ID</th><th>Tanggal</th><th>Item</th><th>Total</th><th>Metode</th></tr></thead>
+                                    <tbody>
+                                        ${posTransactions.map(t => `
+                                            <tr>
+                                                <td>#${t.id}</td>
+                                                <td>${t.date}</td>
+                                                <td>${t.items} item</td>
+                                                <td>Rp ${formatRupiah(t.total)}</td>
+                                                <td>${t.method}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="demo-pos-panel" id="panel-debt">
+                            <h4 style="font-weight:600;color:var(--white);margin-bottom:12px;">💰 Data Hutang</h4>
+                            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;">
+                                <div class="demo-pos-stat"><div class="label">Total Hutang</div><div class="value red">Rp ${formatRupiah(posDebt)}</div></div>
+                                <div class="demo-pos-stat"><div class="label">Sudah Dibayar</div><div class="value green">Rp 150.000</div></div>
+                                <div class="demo-pos-stat"><div class="label">Sisa Hutang</div><div class="value orange">Rp 200.000</div></div>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.02);border-radius:var(--radius-sm);padding:16px 20px;border:1px solid rgba(255,255,255,0.04);">
+                                <p style="font-size:0.9rem;color:var(--gray-300);"><strong>Simulasi:</strong> Kirim pengingat WhatsApp ke pelanggan dengan hutang jatuh tempo.</p>
+                                <button class="btn btn-whatsapp btn-sm" style="margin-top:8px;" onclick="sendDebtReminder()">📱 Kirim Pengingat WhatsApp</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            demoContent.innerHTML = html;
+
+            document.querySelectorAll('#posNav button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('#posNav button').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const panel = this.dataset.panel;
+                    document.querySelectorAll('.demo-pos-panel').forEach(p => p.classList.remove('active'));
+                    document.getElementById('panel-' + panel).classList.add('active');
+                });
+            });
+
+            const cashInput = document.getElementById('cashInput');
+            if (cashInput) {
+                cashInput.addEventListener('input', function() {
+                    const total = posCart.reduce((sum, i) => sum + i.price * i.qty, 0);
+                    const cash = parseInt(this.value) || 0;
+                    const change = cash - total;
+                    const display = document.getElementById('changeDisplay');
+                    if (change >= 0) {
+                        display.textContent = 'Kembalian: Rp ' + formatRupiah(change);
+                        display.style.color = '#4ade80';
+                    } else {
+                        display.textContent = 'Kurang: Rp ' + formatRupiah(Math.abs(change));
+                        display.style.color = '#f87171';
+                    }
+                });
+            }
+        }
+
+        // ============================================================
+        //  POS FUNCTIONS
+        // ============================================================
+        function addToCart(id) {
+            const product = posProducts.find(p => p.id === id);
+            if (!product) return;
+            const existing = posCart.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                posCart.push({ ...product, qty: 1 });
+            }
+            renderDemoPOS();
+        }
+
+        function clearCart() {
+            posCart = [];
+            renderDemoPOS();
+        }
+
+        function checkout() {
+            if (posCart.length === 0) {
+                alert('Keranjang kosong!');
+                return;
+            }
+            const total = posCart.reduce((sum, i) => sum + i.price * i.qty, 0);
+            const cashInput = document.getElementById('cashInput');
+            const cash = cashInput ? parseInt(cashInput.value) || 0 : 0;
+
+            if (cash > 0 && cash < total) {
+                alert('Uang kurang!');
+                return;
+            }
+
+            const newTrans = {
+                id: posTransactions.length + 1,
+                date: new Date().toLocaleString('id-ID'),
+                total: total,
+                method: 'Cash',
+                items: posCart.reduce((sum, i) => sum + i.qty, 0)
+            };
+            posTransactions.push(newTrans);
+            posSalesToday += total;
+            posProfit += Math.round(total * 0.3);
+            posTransCount++;
+            posCart = [];
+
+            posProducts.forEach(p => {
+                const cartItem = posCart.find(i => i.id === p.id);
+                if (cartItem) {
+                    p.stock = Math.max(0, p.stock - cartItem.qty);
+                }
+            });
+
+            alert('✅ Transaksi berhasil! Total: Rp ' + formatRupiah(total));
+            renderDemoPOS();
+        }
+
+        function processPayment(method) {
+            if (posCart.length === 0) {
+                alert('Keranjang kosong!');
+                return;
+            }
+            const total = posCart.reduce((sum, i) => sum + i.price * i.qty, 0);
+            const cashInput = document.getElementById('cashInput');
+            const cash = cashInput ? parseInt(cashInput.value) || 0 : 0;
+
+            if (method === 'Cash') {
+                if (cash < total) {
+                    alert('Uang kurang!');
+                    return;
+                }
+                const change = cash - total;
+                alert('💳 Pembayaran ' + method + ' berhasil!\nTotal: Rp ' + formatRupiah(total) + '\nKembalian: Rp ' +
+                    formatRupiah(change));
+            } else if (method === 'Hutang') {
+                if (confirm('Konfirmasi hutang sebesar Rp ' + formatRupiah(total) + '?')) {
+                    posDebt += total;
+                    alert('✅ Hutang dicatat. Total hutang: Rp ' + formatRupiah(posDebt));
+                } else {
+                    return;
+                }
+            } else {
+                alert('💳 Pembayaran ' + method + ' berhasil!\nTotal: Rp ' + formatRupiah(total));
+            }
+
+            const newTrans = {
+                id: posTransactions.length + 1,
+                date: new Date().toLocaleString('id-ID'),
+                total: total,
+                method: method,
+                items: posCart.reduce((sum, i) => sum + i.qty, 0)
+            };
+            posTransactions.push(newTrans);
+            posSalesToday += total;
+            posProfit += Math.round(total * 0.3);
+            posTransCount++;
+            posCart = [];
+            renderDemoPOS();
+        }
+
+        function addProduct() {
+            const name = prompt('Nama produk:');
+            if (!name) return;
+            const price = parseInt(prompt('Harga:'));
+            if (isNaN(price) || price <= 0) return;
+            const stock = parseInt(prompt('Stok:'));
+            if (isNaN(stock) || stock < 0) return;
+            const newId = Math.max(...posProducts.map(p => p.id)) + 1;
+            posProducts.push({ id: newId, name, price, stock });
+            renderDemoPOS();
+        }
+
+        function editProduct(id) {
+            const product = posProducts.find(p => p.id === id);
+            if (!product) return;
+            const name = prompt('Nama produk:', product.name);
+            if (!name) return;
+            const price = parseInt(prompt('Harga:', product.price));
+            if (isNaN(price) || price <= 0) return;
+            const stock = parseInt(prompt('Stok:', product.stock));
+            if (isNaN(stock) || stock < 0) return;
+            product.name = name;
+            product.price = price;
+            product.stock = stock;
+            renderDemoPOS();
+        }
+
+        function deleteProduct(id) {
+            if (!confirm('Hapus produk ini?')) return;
+            posProducts = posProducts.filter(p => p.id !== id);
+            renderDemoPOS();
+        }
+
+        function sendDebtReminder() {
+            const msg = 'Halo, kami dari MALELA mengingatkan bahwa ada hutang yang jatuh tempo. Segera lakukan pembayaran. Terima kasih.';
+            window.open('https://wa.me/6281282567812?text=' + encodeURIComponent(msg), '_blank');
+        }
+
+        function resetDemo() {
+            if (!confirm('Reset semua data demo ke awal?')) return;
+            posProducts = [
+                { id: 1, name: 'Indomie Goreng', price: 3500, stock: 25 },
+                { id: 2, name: 'Aqua 600ml', price: 4000, stock: 8 },
+                { id: 3, name: 'Gula 1kg', price: 17000, stock: 4 },
+                { id: 4, name: 'Mie Sedap', price: 3200, stock: 15 },
+                { id: 5, name: 'Teh Pucuk 350ml', price: 4500, stock: 12 },
+            ];
+            posCart = [];
+            posTransactions = [
+                { id: 1, date: '2026-08-11 10:30', total: 35000, method: 'Cash', items: 3 },
+                { id: 2, date: '2026-08-11 11:15', total: 22000, method: 'QRIS', items: 2 },
+                { id: 3, date: '2026-08-11 13:45', total: 51000, method: 'Debit', items: 4 },
+            ];
+            posSalesToday = 2450000;
+            posProfit = 750000;
+            posTransCount = 32;
+            posDebt = 350000;
+            posLowStock = 7;
+            renderDemoPOS();
+            alert('✅ Data demo telah direset.');
+        }
+
+        // ============================================================
+        //  UTILITY
+        // ============================================================
+        function formatRupiah(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        // ============================================================
+        //  LEAD FORM
+        // ============================================================
+        const leadForm = document.getElementById('leadForm');
+        const formSuccess = document.getElementById('formSuccess');
+
+        leadForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('leadName').value.trim();
+            const business = document.getElementById('leadBusiness').value.trim();
+            const phone = document.getElementById('leadPhone').value.trim();
+            const app = document.getElementById('leadApp').value;
+            const message = document.getElementById('leadMessage').value.trim();
+
+            if (!name) { alert('Nama lengkap wajib diisi.'); return; }
+            if (!business) { alert('Nama bisnis wajib diisi.'); return; }
+            if (!phone) { alert('Nomor WhatsApp wajib diisi.'); return; }
+            if (message.length < 10) { alert('Deskripsi kebutuhan minimal 10 karakter.'); return; }
+
+            const data = { name, business, phone, application: app, message };
+
+            try {
+                // Simulate success
+                await new Promise(resolve => setTimeout(resolve, 600));
+
+                leadForm.style.display = 'none';
+                formSuccess.style.display = 'block';
+
+                const waMsg =
+                    `Halo MALELA, saya ${name} dari ${business}. Saya tertarik dengan aplikasi ${app || 'Custom'}. ${message}`;
+                window.open('https://wa.me/6281282567812?text=' + encodeURIComponent(waMsg), '_blank');
+
+            } catch (err) {
+                alert('Gagal mengirim data. Silakan coba lagi atau hubungi kami langsung via WhatsApp.');
+                console.error(err);
+            }
+        });
+
+        // ============================================================
+        //  SMOOTH SCROLL
+        // ============================================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ============================================================
+        //  KEYBOARD SHORTCUT
+        // ============================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && demoPage.classList.contains('active')) {
+                closeDemo();
+            }
+        });
+
+        console.log('🚀 MALELA — Digital Solution for Business');
+        console.log('📱 WhatsApp: 0812-8256-7812');
+        console.log('💡 Website showroom aplikasi bisnis futuristik.');
+    </script>
+
+</body>
+</html>
